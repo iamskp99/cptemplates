@@ -1,3 +1,13 @@
+#Check if a number is prime or not in O(n**0.5)
+def chkPrime(n):
+    flag = 1
+    for i in range(2,int(n**0.5)+1):
+        if n%i == 0:
+            flag = 0
+            break
+
+    return flag
+
 #Returns set prime factors O(n**2)
 import math
 def primefactors(n):
@@ -144,19 +154,23 @@ for i in range(1, 10 ** 5 + 3):
 #Matrix exponentiation fibonacci
 M = 10**9+7
 def multiply(m1,m2):
-    m100 = m1[0][0]
-    m101 = m1[0][1]
-    m110 = m1[1][0]
-    m111 = m1[1][1]
-    m200 = m2[0][0]
-    m201 = m2[0][1]
-    m210 = m2[1][0]
-    m211 = m2[1][1]
-    m1[0][0] = (((m100*m200)%M)+((m101*m210)%M))%M
-    m1[0][1] = (((m100 * m201) % M) + ((m101 * m211) % M)) % M
-    m1[1][0] = (((m110 * m200) % M) + ((m111 * m210) % M)) % M
-    m1[1][1] = (((m110 * m201) % M) + ((m111 * m211) % M)) % M
-    return m1
+    r = []
+    for i in range(len(m1)):
+        o = []
+        for j in range(len(m1)):
+            o.append(0)
+
+        r.append(o)
+
+    for i in range(len(m1)):
+        for j in range(len(m2)):
+            som = 0
+            for k in range(len(m1[i])):
+                som = (som+(m1[i][k]*m2[k][j])%M)%M
+
+            r[i][j] = som
+
+    return r
 
 def power(n):
     ans = [[1,0],[0,1]]
@@ -169,3 +183,11 @@ def power(n):
         n = n//2
 
     return ans[0][0]
+
+#Ceil check function
+def chk(p, a):
+    if p % a == 0:
+        return 0
+
+    return 1
+

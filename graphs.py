@@ -55,6 +55,20 @@ def dfs(x,visited,graph):
 
     return
 
+#DFS (Iterative)
+def dfs(x, visited, graph):
+    stack = [x]
+    ans = 0
+    while len(stack) > 0:
+        node = stack.pop()
+        visited.add(node)
+        for i in graph[node]:
+            if i not in visited:
+                ans += 1
+                stack.append(i)
+
+    return ans
+
 #DSU
 #Iterative Find()
 def find(u):
@@ -87,7 +101,7 @@ def union(a,b):
         return
 
 #Dijkstra's algorithm
-##Inefficient implementation
+##Inefficient implementation O(V**2)
 def getmin(s):
     e = 10**18
     x = -1
