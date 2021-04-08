@@ -57,7 +57,7 @@ sieve()
 
 import math
 
-#Return Divisors O(n**2)
+#Returns Divisors in O(sqrt(n))
 def divisors(n):
     i = 1
     l = []

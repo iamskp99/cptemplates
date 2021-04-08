@@ -27,3 +27,17 @@ def max_acitivity(n, start, end):
 
     return ans
 
+#Prefix Range Sum (GIVES SUM OVER A RANGE)
+def makePrefixArray(l):
+    prefix = [0]
+    for i in l:
+        prefix.append(prefix[-1]+i)
+
+    return prefix
+
+def getRangeSum(start,end,parray):
+    if start <= 0 or end >= len(parray):
+        return -1
+
+    else:
+        return parray[end]-parray[start-1]
