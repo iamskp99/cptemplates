@@ -58,16 +58,17 @@ def dfs(x,visited,graph):
 #DFS (Iterative)
 def dfs(x, visited, graph):
     stack = [x]
-    ans = 0
     while len(stack) > 0:
         node = stack.pop()
         visited.add(node)
+        if node not in graph:
+            continue
+
         for i in graph[node]:
             if i not in visited:
-                ans += 1
                 stack.append(i)
 
-    return ans
+    return
 
 #DSU
 #Iterative Find()

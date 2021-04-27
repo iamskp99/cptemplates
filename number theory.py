@@ -8,21 +8,21 @@ def chkPrime(n):
 
     return flag
 
-#Returns set prime factors O(n**2)
+#Returns set prime factors O(sqrt(n))
 import math
 def primefactors(n):
-    l = set()
+    l = []
     while n % 2 == 0:
-        l.add(2)
+        l.append(2)
         n = n // 2
 
     for i in range(3, int(math.sqrt(n)) + 1, 2):
         while n % i == 0:
-            l.add(i)
+            l.append(i)
             n = n // i
 
     if n > 2:
-        l.add(n)
+        l.append(n)
 
     return l
 
