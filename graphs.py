@@ -131,3 +131,27 @@ def dijkstra(v):
                 s.add((dist[v],v))
 
     return
+
+# Connected Components
+from collections import deque
+
+def connectedComponent(start,graph,n):
+    explored = set()
+    queue = deque([start])
+    visited = {start}
+    while queue:
+        node = queue.popleft()
+        explored.add(node)
+        if node not in graph:
+            continue
+
+        neighbours = graph[node]
+        for neighbour in neighbours:
+            if neighbour not in visited:
+                queue.append(neighbour)
+                visited.add(neighbour)
+
+    if len(explored) == n:
+        return True
+
+    return False
