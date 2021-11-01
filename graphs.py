@@ -124,6 +124,7 @@ def connectedComponent(start,graph,n):
         return True
 
     return False
+<<<<<<< HEAD
 
 # Prim's
 
@@ -225,3 +226,5 @@ def floyd(G,nV):
                 dist[p][q] = min(dist[p][q], dist[p][r] + dist[r][q])
 
     return dist
+=======
+>>>>>>> c32eb9a92e937cc5e23ca34ee13c39c787e2017a
