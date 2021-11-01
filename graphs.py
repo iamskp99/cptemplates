@@ -70,37 +70,6 @@ def dfs(x, visited, graph):
 
     return
 
-#DSU
-#Iterative Find()
-def find(u):
-    while True:
-        if parent[u] == u:
-            x = u
-            break
-
-        else:
-            u = parent[u]
-
-    return x
-
-#Iterative Recursive
-def find(u):
-    if parent[u] == u:
-        return u
-    parent[u] = find(parent[u])
-    return parent[u]
-
-#Union
-def union(a,b):
-    a = find(a)
-    b = find(b)
-    if a == b:
-        return
-
-    else:
-        parent[a] = b
-        return
-
 #Dijkstra's algorithm
 ##Inefficient implementation O(V**2)
 def getmin(s):
@@ -155,3 +124,104 @@ def connectedComponent(start,graph,n):
         return True
 
     return False
+
+# Prim's
+
+def prim(start,graph,cost,n):
+    key = [10**18]*(n+1)
+    mst = [0]*(n+1)
+    parent = [-1]*(n+1)
+    key[start] = 0
+    h = [(0,start)]
+    heapq.heapify(h)
+    while len(h) > 0:
+        x = heapq.heappop(h)
+        mst[x[1]] = 1
+        for j in graph[x[1]]:
+            if mst[j] == 0:
+                if (x[1],j) in cost:
+                    price = cost[(x[1],j)]
+
+                else:
+                    price = cost[(j,x[1])]
+
+                if price < key[j]:
+                    parent[j] = x[1]
+                    heapq.heappush(h,(price,j))
+                    key[j] = price
+
+    return sum(key[1:])
+
+# Kruskal's
+
+import heapq
+import sys
+input = sys.stdin.readline
+
+class Union():
+    def __init__(self,parent,rank):
+        self.parent = parent
+        self.rank = rank
+
+    def union(self, a, b):
+        e1 = self.findp(a)
+        e2 = self.findp(b)
+        if e1 == e2:
+            return e1
+
+        if self.rank[e1] < self.rank[e2]:
+            self.parent[e1] = self.parent[e2]
+            return e2
+
+        elif self.rank[e1] > self.rank[e2]:
+            self.parent[e2] = self.parent[e1]
+            return e1
+
+        else:
+            self.parent[e1] = self.parent[e2]
+            self.rank[e1] += 1
+            return e2
+
+    def findp(self, a):
+        if self.parent[a] == a:
+            return a
+
+        self.parent[a] = self.findp(self.parent[a])
+        return self.parent[a]
+
+def kruskal(h,n):
+    mst = [0]*(n+1)
+    parent = []
+    rank = []
+    for i in range(n+1):
+        parent.append(i)
+        rank.append(0)
+
+    ans = 0
+    sg = Union(parent,rank)
+    while len(h) > 0:
+        x = heapq.heappop(h)
+        e1 = x[1]
+        e2 = x[2]
+        if sg.findp(e1) != sg.findp(e2):
+            sg.union(e1,e2)
+            ans += x[0]
+
+    return ans
+
+
+#Floyd Warshall
+
+INF = 10**18
+# Algorithm
+# G is the graph in an adjacency matrix and nV is the no. of nodes
+
+def floyd(G,nV):
+    dist = list(map(lambda p: list(map(lambda q: q, p)), G))
+    # Adding vertices individually
+    for r in range(nV):
+        for p in range(nV):
+            for q in range(nV):
+                dist[p][q] = min(dist[p][q], dist[p][r] + dist[r][q])
+
+    return dist
