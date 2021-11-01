@@ -70,37 +70,6 @@ def dfs(x, visited, graph):
 
     return
 
-#DSU
-#Iterative Find()
-def find(u):
-    while True:
-        if parent[u] == u:
-            x = u
-            break
-
-        else:
-            u = parent[u]
-
-    return x
-
-#Iterative Recursive
-def find(u):
-    if parent[u] == u:
-        return u
-    parent[u] = find(parent[u])
-    return parent[u]
-
-#Union
-def union(a,b):
-    a = find(a)
-    b = find(b)
-    if a == b:
-        return
-
-    else:
-        parent[a] = b
-        return
-
 #Dijkstra's algorithm
 ##Inefficient implementation O(V**2)
 def getmin(s):
